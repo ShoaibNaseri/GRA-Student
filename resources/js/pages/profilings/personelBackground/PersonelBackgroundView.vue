@@ -5,34 +5,15 @@
             <div class="container-fluid">
                 <div class="block-header">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <h2>Personal Information</h2>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><router-link href="" :to="{ name: 'Dashboard' }"><i
-                                            class="fa fa-dashboard"></i></router-link></li>
-                                <li class="breadcrumb-item">Information</li>
-                                <li class="breadcrumb-item active">Personal Inforamtion Index</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-4">
-                            <div class="d-flex flex-row-reverse">
-                                <div class="page_action">
-                                    <a href="" class="btn btn-secondary bg-dark text-white">Addsss
-                                        Personal
-                                        Details</a>
-                                </div>
-                                <div class="p-2 d-flex">
-
-                                </div>
-                            </div>
-                        </div>
+                        <title-header :headerData="headerData"></title-header>
+                        <add-button v-if="personel == null" :buttonData="buttonData"></add-button>
                     </div>
                 </div>
                 <div class="d-block border-bottom mb-3">
                     <h4>Personal Information </h4>
                 </div>
                 <!-- if empty -->
-                <div class="row">
+                <div class="row" v-if="personel == null">
                     <div class="col-md-12 col-lg-12 col-sm-12 text-center">
                         <p class="text-danger">*Please Update Your Personal Information</p>
                     </div>
@@ -45,16 +26,18 @@
                                 <div class="row">
                                     <div class="col-md-3 text-center">
                                         <div class="member-thumb">
-                                            <img height="200" width="200" src="" class="img-fluid rounded"
-                                                alt="profile-image">
+                                            <img height="200" width="200"
+                                                :src="getImageUrl('student/images/profile/' + student.image)"
+                                                class="img-fluid rounded" alt="profile-image">
 
                                         </div>
                                         <div class="detail mt-3">
-                                            <h4 class="mb-0">name</h4>
-                                            <p class="text-muted">email</p>
+                                            <h4 class="mb-0">{{ student.name }}</h4>
+                                            <p class="text-muted">{{ student.email }}</p>
                                             <div class="">
-                                                <a class="btn btn-success" href="">Edit
-                                                    Infos</a>
+                                                <router-link :to="{ name: 'personel.add', params: { id: personel.id } }"
+                                                    class="btn btn-success" href="">Edit
+                                                    Infos</router-link>
                                             </div>
                                         </div>
 
@@ -76,7 +59,12 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-
+                                                        <td>{{ personel.f_name }}</td>
+                                                        <td>{{ student.email }}</td>
+                                                        <td>{{ personel.phone }}</td>
+                                                        <td>{{ personel.wtsp }}</td>
+                                                        <td>{{ personel.gender }}</td>
+                                                        <td>{{ personel.marital_state }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -95,7 +83,11 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-
+                                                        <td>{{ personel.country }}</td>
+                                                        <td>{{ personel.city }}</td>
+                                                        <td>{{ personel.address }}</td>
+                                                        <td>{{ personel.mailing_address }}</td>
+                                                        <td>{{ personel.postal_code }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -114,10 +106,40 @@
 </template>
 <script>
 import axios from 'axios'
+import TitleHeader from '../../../components/mainLayout/TitleHeader.vue';
+import AddButton from '../../../components/mainLayout/AddButton.vue';
 export default {
+    components: { TitleHeader, AddButton },
     name: "PersonelBackground",
+    data() {
+        return {
+            headerData: {
+                mainTitle: 'Personel Inforamtion',
+                subTitle: 'Personel Information Index',
+                belongsTo: 'Profilings'
+            },
+            buttonData: {
+                routeName: 'pesonel.add',
+                title: 'Add Personel Information'
+            },
+            studentId: localStorage.getItem('sid'),
+            personel: '',
+            student: '',
+        }
+    },
+    methods: {
+        getImageUrl(imagePath) {
+            return `${window.location.origin}/storage/${imagePath}`;
+        },
+    },
     mounted() {
-        axios.get()
+
+        axios.get(`/api/student/profiling/personel/info/${this.studentId}`)
+            .then(response => {
+                this.personel = response.data;
+                this.student = this.personel.student;
+                console.log(response.data);
+            })
     }
 }
 

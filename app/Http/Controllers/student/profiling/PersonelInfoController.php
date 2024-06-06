@@ -14,4 +14,14 @@ class PersonelInfoController extends Controller
     {
         $this->personelInfoRepo = $personalInfoRepository;
     }
+    public function index($id)
+    {
+        $data = $this->personelInfoRepo->getPersonalDataByStudentId($id);
+        return response()->json($data);
+    }
+    public function edit($id)
+    {
+        $data = $this->personelInfoRepo->getPersonalDataById($id);
+        return response()->json($data);
+    }
 }

@@ -60,7 +60,7 @@ export default {
                         },
                         {
                             name: 'Educational Background',
-                            routeName: '',
+                            routeName: 'education.index',
                         },
                         {
                             name: 'Education Details',

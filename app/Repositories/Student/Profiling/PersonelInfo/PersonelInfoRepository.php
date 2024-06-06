@@ -17,7 +17,7 @@ class PersonelInfoRepository
     }
     public function getPersonalDataByStudentId($id)
     {
-        return $this->personalM->where('student_id', $id)->first();
+        return $this->personalM->where('student_id', $id)->with('student')->first();
     }
     public function getBlankPersonal()
     {
