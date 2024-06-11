@@ -55,12 +55,23 @@ export default {
                             routeName: ''
                         },
                         {
+                            name: 'Applying Credentials',
+                            routeName: 'credential.index'
+                        },
+                        {
                             name: 'Personel Information',
                             routeName: 'profilings.personel'
                         },
                         {
                             name: 'Educational Background',
                             routeName: 'education.index',
+                        },
+                        {
+                            name: 'Certified Languages',
+                            routeName: ''
+                        },
+                        {
+
                         },
                         {
                             name: 'Education Details',

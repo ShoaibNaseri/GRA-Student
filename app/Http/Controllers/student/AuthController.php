@@ -7,6 +7,7 @@ use App\Models\Student\Student;
 use App\Models\Student\Studentstatus;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -22,6 +23,7 @@ class AuthController extends Controller
         if ($student) {
             if ($student->status === 'Verified') {
                 if (Hash::check($credentials['password'], $student->password)) {
+                    Auth::user();
                     $date = Carbon::now();
                     $checkStatus = Studentstatus::where('student_id', $student->id)->first();
                     if ($checkStatus == null) {
@@ -36,6 +38,7 @@ class AuthController extends Controller
                     }
                     $changeStatus =  Studentstatus::where('student_id', $student->id)->first();
                     $changeStatus->markOnline();
+
                     $token = $student->createToken('StudentApp')->accessToken;
                     return response()->json(['token' => $token, 'Sid' => $student->id]);
                 } else {

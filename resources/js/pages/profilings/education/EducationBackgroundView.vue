@@ -263,6 +263,7 @@ export default {
     mounted() {
         axios.get(`/api/student/profiling/education/${this.studentId}`)
             .then(response => {
+                console.log(response);
                 this.educationData = response.data;
                 this.school = this.educationData.school;
                 this.master = this.educationData.master;

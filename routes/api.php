@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\student\AuthController;
+use App\Http\Controllers\student\profiling\CredentialController;
 use App\Http\Controllers\student\profiling\EducationController;
 use App\Http\Controllers\student\profiling\PersonelInfoController;
 use App\Http\Controllers\student\StudentController;
@@ -36,3 +37,9 @@ Route::post('/student/profiling/education/master/store', [EducationController::c
 Route::get('/student/profiling/education/master/edit/{id}', [EducationController::class, 'editMaster']);
 Route::post('/student/profiling/education/master/update/{id}', [EducationController::class, 'updateMaster']);
 Route::delete('/student/profiling/education/master/delete/{id}', [EducationController::class, 'deleteMaster']);
+
+
+//Applying Credential Routes
+
+Route::resource('/applyingCredential', CredentialController::class);
+Route::get('/student/applyingCredential/index/{id}', [CredentialController::class, 'index']);

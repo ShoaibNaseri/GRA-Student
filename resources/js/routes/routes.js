@@ -11,6 +11,8 @@ import EducationIBackgroundView from "@/pages/profilings/education/EducationBack
 import SchoolSaveView from "@/pages/profilings/education/SchoolSaveView.vue";
 import BachelorSaveView from "@/pages/profilings/education/BachelorSaveView.vue";
 import MasterSaveView from  "@/pages/profilings/education/MasterSaveView.vue";
+import CredentialView from "./../pages/profilings/credential/CredentialView.vue";
+import CredentialSave from "./../pages/profilings/credential/CredentialSave.vue";
 
 
 const routes = [
@@ -64,7 +66,18 @@ const routes = [
                 path:'/profiling/education/master/customize/:id?',
                 name:'master.add',
                 component:MasterSaveView,
+            },
+            {
+                path:'profiling/credential/index',
+                name:'credential.index',
+                component:CredentialView,
+            },
+            {
+                path:'profiling/credential/save/:id?',
+                name:'credential.add',
+                component:CredentialSave
             }
+
         ]
     }
 
